@@ -1,0 +1,24 @@
+{
+  "name": "ceming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/ceming.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.31",
+    "multer": "^1.4.1",
+    "request": "^2.88.0"
+  }
+}

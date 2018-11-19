@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, email=no">
+		<!--不要给电话和email自动加上链接-->
+		<!--禁止将数字变为电话号码-->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!--允许全屏模式浏览，隐藏浏览器导航栏-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
+		<title><%= title %></title>
+		<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.js"></script>
+		<script src="https://cdn.bootcss.com/moment.js/2.18.1/moment.min.js"></script>
+		<script src="https://cdn.bootcss.com/moment.js/2.18.1/locale/zh-cn.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<fieldset>
+				<legend><%= title %></legend>
+				<form class="form-horizontal" action="/edit" method="post">
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="state">日期:</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" name="addTime" value="<%= record.addTime %>" id="datetimepicker">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="storeName">商家名称：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="商家名称" name="storeName" value="<%= record.storeName %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="incomeMethods">收款 微信/QQ：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="收款 微信/QQ" name="incomeMethods" value="<%= record.incomeMethods %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="orderInfo">店铺名称：</label>
+						<div class="col-xs-8">
+							<textarea class="form-control" placeholder="店铺名称" name="orderInfo"><%= record.orderInfo %></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="taobaoAccount">淘宝账号：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="淘宝账号" name="taobaoAccount" value="<%= record.taobaoAccount %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="payMethods">付款方式：</label>
+						<div class="col-xs-8">
+							<select class="form-control" name="payMethods">
+								<% if(record.payMethods === "1"){%>
+									<option value="1" selected>花呗</option>
+								<% } else { %>
+									<option value="1">花呗</option>
+								<% } %>
+								<% if(record.payMethods === "2"){%>
+									<option value="2" selected>信用卡</option>
+								<% } else { %>
+									<option value="2">信用卡</option>
+								<% } %>
+								<% if(record.payMethods === "3"){%>
+									<option value="3" selected>现金</option>
+								<% } else { %>
+									<option value="3">现金</option>
+								<% } %>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="pay">付款金额：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="付款金额" name="pay" value="<%= record.pay %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="commission">佣金：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="佣金" name="commission" value="<%= record.commission %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="gift">礼物：</label>
+						<div class="col-xs-8">
+							<input class="form-control" type="text" placeholder="礼物" name="gift" value="<%= record.gift %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="benjinIsGet">本金是否已返：</label>
+						<div class="col-xs-8">
+							<label class="radio-inline">
+								<% if(record.benjinIsGet === "1"){%>
+									<input type="radio" name="benjinIsGet" value="1" checked>是
+								<% } else { %>
+									<input type="radio" name="benjinIsGet" value="1">是
+								<% } %>
+							</label>
+							<label class="radio-inline">
+								<% if(record.benjinIsGet === "0"){%>
+									<input type="radio" name="benjinIsGet" value="0" checked>否
+								<% } else { %>
+									<input type="radio" name="benjinIsGet" value="0">否
+								<% } %>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="yongjinIsGet">佣金是否已返:</label>
+						<div class="col-xs-8">
+							<label class="radio-inline">
+								<% if(record.yongjinIsGet === "1"){%>
+									<input type="radio" name="yongjinIsGet" value="1" checked>是
+								<% } else { %>
+									<input type="radio" name="yongjinIsGet" value="1">是
+								<% } %>
+							</label>
+							<label class="radio-inline">
+								<% if(record.yongjinIsGet === "0"){%>
+									<input type="radio" name="yongjinIsGet" value="0" checked>否
+								<% } else { %>
+									<input type="radio" name="yongjinIsGet" value="0">否
+								<% } %>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="receipted">是否签收:</label>
+						<div class="col-xs-8">
+							<label class="radio-inline">
+								<% if(record.receipted === "1"){%>
+									<input type="radio" name="receipted" value="1" checked>是
+								<% } else { %>
+									<input type="radio" name="receipted" value="1">是
+								<% } %>
+							</label>
+							<label class="radio-inline">
+								<% if(record.receipted === "0"){%>
+									<input type="radio" name="receipted" value="0" checked>否
+								<% } else { %>
+									<input type="radio" name="receipted" value="0">否
+								<% } %>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="yaoqiu">返款要求:</label>
+						<div class="col-xs-8">
+							<textarea class="form-control" placeholder="返款要求" name="yaoqiu"><%= record.yaoqiu %></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="quote">备注:</label>
+						<div class="col-xs-8">
+							<textarea class="form-control" placeholder="备注" name="quote"><%= record.quote %></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label" for="state">完成状态:</label>
+						<div class="col-xs-8">
+							<label class="radio-inline">
+								<% if(record.state === "1"){%>
+									<input type="radio" name="state" value="1" checked>是
+								<% } else { %>
+									<input type="radio" name="state" value="1">是
+								<% } %>
+							</label>
+							<label class="radio-inline">
+								<% if(record.state === "0"){%>
+									<input type="radio" name="state" value="0" checked>否
+								<% } else { %>
+									<input type="radio" name="state" value="0">否
+								<% } %>
+							</label>
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+					    <div class="col-xs-offset-2 col-xs-8 text-center">
+					    	<input type="hidden" name="id" value="<%= record._id%>">
+							<button type="submit" class="btn btn-success">修 改</button>
+						</div>
+					</div>
+				</form>
+			</fieldset>
+		</div>
+		<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+		<script>
+			$('#datetimepicker').datetimepicker({
+				format: "YYYY-MM-DD"
+			});
+		</script>
+	</body>
+</html>

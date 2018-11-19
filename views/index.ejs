@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no, email=no">
+		<!--不要给电话和email自动加上链接-->
+		<!--禁止将数字变为电话号码-->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!--允许全屏模式浏览，隐藏浏览器导航栏-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/index.css" rel="stylesheet">
+		<title><%= title %></title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="records">
+				<div class="record-header">
+					<p>序号</p>
+					<p>日期</p>
+					<p>商家名称</p>
+					<p>收款 微信/QQ</p>
+					<p>店铺名称</p>
+					<p>淘宝账号</p>
+					<p>付款方式</p>
+					<p>付款金额</p>
+					<p>佣金</p>
+					<p>合计总额</p>
+					<p>礼物</p>
+					<p>本金是否已返</p>
+					<p>佣金是否已返</p>
+					<p>返款要求</p>
+					<p>备注</p>
+					<p>是否签收</p>
+					<p>完成状态</p>
+					<p>操作</p>
+				</div>
+				<div class="record-body-container">
+					<div class="record-body">
+						<% 
+							function getAllMoney(a, b){
+								var a = a*100;
+								var b = b*100;
+								return (a+b)/100;
+							}
+							function getPayMethods(a){
+								if(a == 1){
+									return '花呗';
+								} else if(a == 2){
+									return '信用卡';
+								} else if(a == 3) {
+									return '现金';
+								} else {
+									return '未支付款';
+								}
+							}
+							function yesNo(str){
+								if(str == 1){
+									return '是';
+								} else if(str == 0){
+									return	'否';
+								} else {
+									return '未知';
+								}
+							}
+							for(var i = 0; i < quotes.length; i++) {
+						%>
+							<div class="item">
+								<p><strong class="badge"><%= i+1 %></strong></p>
+								<p><%= quotes[i].addTime %></p>
+								<p><%= quotes[i].storeName %></p>
+								<p><%= quotes[i].incomeMethods %></p>
+								<p><%= quotes[i].orderInfo %></p>
+								<p><%= quotes[i].taobaoAccount %></p>
+								<p><%= getPayMethods(quotes[i].payMethods) %></p>
+								<p><%= quotes[i].pay %></p>
+								<p><%= quotes[i].commission %></p>
+								<p><%= getAllMoney(quotes[i].pay, quotes[i].commission) %></p>
+								<p><%= quotes[i].gift %></p>
+								<p><%= yesNo(quotes[i].benjinIsGet) %></p>
+								<p><%= yesNo(quotes[i].yongjinIsGet) %></p>
+								<p><%= quotes[i].yaoqiu %></p>
+								<p><%= quotes[i].quote %></p>
+								<p><%= yesNo(quotes[i].receipted) %></p>
+								<p><%= yesNo(quotes[i].state) %></p>
+								<p>
+									<a class="btn btn-primary btn-sm" href=<%= "/edit?id="+quotes[i]._id.toHexString()%>>修改</a>
+									<a class="btn btn-primary btn-sm" href=<%= "/del?id="+quotes[i]._id.toHexString()%>>删除</a>
+								</p>
+							</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<p>共计：<strong><%= quotes.length %>条</strong></p>
+			<hr>
+			<div class="add-btns text-center">
+				<a class="btn btn-success" href="/add">添加记录</a>
+			</div>
+		</div>
+		<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.js"></script>
+<!-- 		<script>
+			$(function(){
+				var $item = $('.item');
+				var $recordBody = $('.record-body');
+				var width = 0;
+				var length = $item.length;
+				for(var i = 0; i < length; i++) {
+					width += $($item[i]).width()
+				}
+				$recordBody.width(width);
+			});
+		</script> -->
+	</body>
+</html>
