@@ -125,12 +125,6 @@ app.post('/accurate', function(req, res) {
     var reqBody = req.body;
     var imgData = reqBody.photos;
     var base64Data = imgData.replace(/^data:image\/\w+;base64,/, '');
-    var dataBuffer = new Buffer(base64Data, 'base64');
-    // fs.writeFile('./temp/'+Date.now()+'image.png', dataBuffer, function(err) {
-    //     if(err) {
-    //         res.json({resultCode: '500', resultMsg: '服务器错误', err: err});
-    //     }
-    // });
     textDetctor(base64Data, function(err, data) {
         if(err) {
             res.json({resultCode: '500', resultMsg: '服务器错误', err: err});
